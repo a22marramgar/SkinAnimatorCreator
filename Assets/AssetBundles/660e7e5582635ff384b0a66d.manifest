@@ -1,0 +1,73 @@
+ManifestFileVersion: 0
+CRC: 3842098703
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 00eb79285f2d21b40a4c6960ef5469f0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7fa6feb1b1bc714a7a152d671a883911
+  IncrementalBuildHash:
+    serializedVersion: 2
+    Hash: 00eb79285f2d21b40a4c6960ef5469f0
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 221
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite25.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Walking_Left.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite7.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite35.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite17.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Idle_Down.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite5.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite1.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite2.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite16.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite22.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Walking_Front.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite0.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite9.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite30.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite13.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Idle_Left.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/Walking_Up.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite23.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite18.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite24.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Idle_Right.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite8.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite27.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite15.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite4.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite34.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite10.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite6.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite12.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite31.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite19.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite21.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite26.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite33.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Walking_Right.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite11.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite28.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite29.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/Idle_Up.anim
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite3.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite14.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/spritesheet.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/aoc.overrideController
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite20.asset
+- Assets/Resources/660e7e5582635ff384b0a66d/sprite32.asset
+Dependencies: []
