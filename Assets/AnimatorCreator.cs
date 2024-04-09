@@ -55,7 +55,7 @@ public class AnimatorCreator : MonoBehaviour
             tex.wrapMode = TextureWrapMode.Clamp;
             tex.filterMode = FilterMode.Point;
             var path = "Assets/Resources/" + id + "/";
-            (new System.IO.FileInfo(path)).Directory.Create(); // If the directory already exists, this method does nothing.
+            new System.IO.FileInfo(path).Directory.Create(); // If the directory already exists, this method does nothing.
             AssetImporter assetImporter = AssetImporter.GetAtPath("Assets/Resources/" + id);
             assetImporter.assetBundleName = id;
             assetImporter.SaveAndReimport();
@@ -102,9 +102,6 @@ public class AnimatorCreator : MonoBehaviour
                 new KeyValuePair<string, Sprite[]>("Idle_Up", idleUp)
 
             };
-
-
-            byte[] bytes = ImageConversion.EncodeToPNG(tex);
 
             // For testing purposes, also write to a file in the project folder
             for (int i = 0; i < sprites.Length; i++)
