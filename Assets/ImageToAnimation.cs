@@ -2,95 +2,57 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.PlayerLoop;
 
-public class AnimatorCreator : MonoBehaviour
+public class ImageToAnimation : MonoBehaviour
 {
-    private Sprite[] sprites;
     [SerializeField] private Animator animator;
-
+    [SerializeField] private Texture2D image;
+    private Sprite[] sprites;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("GetDataRequest", "http://130.61.191.128:3450/getData?collection=Character&name=MainCharacter");
-    }
-
-    IEnumerator GetDataRequest(string url)
-    {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+        image.wrapMode = TextureWrapMode.Clamp;
+        image.filterMode = FilterMode.Point;
+        var id = image.name;
+        var path = "Assets/Generated/" + id + "/";
+        (new System.IO.FileInfo(path)).Directory.Create(); // If the directory already exists, this method does nothing.
+        AssetDatabase.Refresh();
+        AssetImporter assetImporter = AssetImporter.GetAtPath("Assets/Generated/" + id);
+        assetImporter.assetBundleName = id;
+        assetImporter.SaveAndReimport();
+        Rect[] regions = defineRegions();
+        sprites = MakeMultiSprite(image, 48, regions);
+        Sprite[] walkUpSprites = new Sprite[9];
+        for (int i = 0; i < 9; i++)
         {
-            yield return webRequest.SendWebRequest();
-            if (webRequest.result == UnityWebRequest.Result.Success)
-            {
-                string responseText = webRequest.downloadHandler.text;
-                string jsonString = fixJson(responseText);
-                JsonData[] jsonData = JsonHelper.FromJson<JsonData>(jsonString);
-                foreach (skin skin in jsonData[0].skins)
-                {
-                    StartCoroutine(GetRequest("http://130.61.191.128:3450/imagen/" + skin.path, skin._id));
-                }
-            }
-            else
-            {
-                Debug.Log("Error: " + webRequest.error);
-            }
+            walkUpSprites[i] = sprites[i + (9 * 0)];
         }
-    }
-
-    IEnumerator GetRequest(string url, string id)
-    {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-        if (www.result != UnityWebRequest.Result.Success)
+        Sprite[] walkLeftSprites = new Sprite[9];
+        for (int i = 0; i < 9; i++)
         {
-            Debug.Log(www.error);
+            walkLeftSprites[i] = sprites[i + (9 * 1)];
         }
-        else
+        Sprite[] walkDownSprites = new Sprite[9];
+        for (int i = 0; i < 9; i++)
         {
-            Texture2D tex = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            tex.wrapMode = TextureWrapMode.Clamp;
-            tex.filterMode = FilterMode.Point;
-            var path = "Assets/Resources/" + id + "/";
-            new System.IO.FileInfo(path).Directory.Create(); // If the directory already exists, this method does nothing.
-            AssetImporter assetImporter = AssetImporter.GetAtPath("Assets/Resources/" + id);
-            assetImporter.assetBundleName = id;
-            assetImporter.SaveAndReimport();
-            AssetDatabase.CreateAsset(tex, path + "spritesheet.asset");
-            Rect[] regions = defineRegions();
-            sprites = MakeMultiSprite(tex, 48, regions);
-            Sprite[] walkUpSprites = new Sprite[9];
-            for (int i = 0; i < 9; i++)
-            {
-                walkUpSprites[i] = sprites[i + (9 * 0)];
-            }
-            Sprite[] walkLeftSprites = new Sprite[9];
-            for (int i = 0; i < 9; i++)
-            {
-                walkLeftSprites[i] = sprites[i + (9 * 1)];
-            }
-            Sprite[] walkDownSprites = new Sprite[9];
-            for (int i = 0; i < 9; i++)
-            {
-                walkDownSprites[i] = sprites[i + (9 * 2)];
-            }
-            Sprite[] walkRightSprites = new Sprite[9];
-            for (int i = 0; i < 9; i++)
-            {
-                walkRightSprites[i] = sprites[i + (9 * 3)];
-            }
-            Sprite[] idleUp = new Sprite[1];
-            idleUp[0] = sprites[0];
-            Sprite[] idleLeft = new Sprite[1];
-            idleLeft[0] = sprites[9];
-            Sprite[] idleDown = new Sprite[1];
-            idleDown[0] = sprites[18];
-            Sprite[] idleRight = new Sprite[1];
-            idleRight[0] = sprites[27];
-            var spritesList = new List<KeyValuePair<string, Sprite[]>>
+            walkDownSprites[i] = sprites[i + (9 * 2)];
+        }
+        Sprite[] walkRightSprites = new Sprite[9];
+        for (int i = 0; i < 9; i++)
+        {
+            walkRightSprites[i] = sprites[i + (9 * 3)];
+        }
+        Sprite[] idleUp = new Sprite[1];
+        idleUp[0] = sprites[0];
+        Sprite[] idleLeft = new Sprite[1];
+        idleLeft[0] = sprites[9];
+        Sprite[] idleDown = new Sprite[1];
+        idleDown[0] = sprites[18];
+        Sprite[] idleRight = new Sprite[1];
+        idleRight[0] = sprites[27];
+        var spritesList = new List<KeyValuePair<string, Sprite[]>>
             {
                 new KeyValuePair<string, Sprite[]>("Walking_Up", walkUpSprites),
                 new KeyValuePair<string, Sprite[]>("Walking_Front", walkDownSprites),
@@ -103,17 +65,16 @@ public class AnimatorCreator : MonoBehaviour
 
             };
 
-            // For testing purposes, also write to a file in the project folder
-            for (int i = 0; i < sprites.Length; i++)
-            {
-                AssetDatabase.CreateAsset(sprites[i], path + "sprite" + i + ".asset");
-            }
-
-            //System.IO.File.WriteAllBytes(path+"spritesheet.png", bytes);
-            var animations = createAnimationClip(spritesList, path);
-            AnimatorOverrideController aoc = OverrideAnimator(animations);
-            AssetDatabase.CreateAsset(aoc, path + "aoc.overrideController");
+        // For testing purposes, also write to a file in the project folder
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            AssetDatabase.CreateAsset(sprites[i], path + "sprite" + i + ".asset");
         }
+
+        //System.IO.File.WriteAllBytes(path+"spritesheet.png", bytes);
+        var animations = createAnimationClip(spritesList, path);
+        AnimatorOverrideController aoc = OverrideAnimator(animations);
+        AssetDatabase.CreateAsset(aoc, path + "aoc.overrideController");
     }
 
     private List<AnimationClip> createAnimationClip(List<KeyValuePair<string, Sprite[]>> spritesList, string path)
@@ -254,28 +215,5 @@ public class AnimatorCreator : MonoBehaviour
 
         return sprites;
     }
-
-    string fixJson(string value)
-    {
-        value = "{\"Items\":" + value + "}";
-        return value;
-    }
-}
-
-[System.Serializable]
-public class JsonData
-{
-    public string _id;
-    public string name;
-    public skin[] skins;
-}
-
-[System.Serializable]
-public class skin
-{
-    public string _id;
-    public string name;
-    public string path;
-    public string price;
 }
 #endif
